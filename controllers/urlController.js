@@ -1,4 +1,4 @@
-import newShortID from "./shortId.js";
+import newShortID from "../utilities/shortId.js";
 import URL from "../models/urlModel.js";
 
 async function generateNewShortID(req, res) {
