@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Short The URL</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+
+  <body>
+    <div
+      name="inputArea"
+      class="bg-green-400 flex pb-15 pt-5 flex-col items-center"
+    >
+      <h1
+        class="text-5xl text-center font-extrabold p-3 text-white m-3 md:text-7xl"
+      >
+        Short Your URL
+      </h1>
+      <form
+        class="flex flex-col items-center md:block"
+        action="/url/generate"
+        method="post"
+      >
+        <input
+          class="bg-gray-100 font-bold text-3xl m-3 p-3 rounded-2xl box-border border-2 border-gray-300 w-[90dvw] focus:outline-0 md:w-[70dvw]"
+          type="url"
+          name="url"
+          placeholder="Enter Your URL Here"
+          required
+        />
+        <button
+          type="submit"
+          class="text-3xl p-3 font-bold rounded-2xl bg-green-600 box-border border-green-700 border-2"
+        >
+          Generate
+        </button>
+      </form>
+      <% if (locals.shortId) { %>
+      <h2 class="font-bold p-10 text-center text-3xl">
+        Url Generated:
+        <a
+          class="text-white hover:underline hover:text-blue-900"
+          href="http://127.0.0.1:3000/<%=shortId%>"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <%=shortId%>
+        </a>
+      </h2>
+      <% } %>
+    </div>
+    <div name="tableArea" class="flex bg-gray-100 flex-col">
+      <% if (locals.urls) { %>
+      <table>
+        <thead>
+          <tr>
+            <th class="border-2 border-gray-400 font-bold p-3">SN</th>
+            <th class="border-2 border-gray-400 font-bold p-3">Short ID</th>
+            <th class="border-2 border-gray-400 font-bold p-3">Original URL</th>
+            <th class="border-2 border-gray-400 font-bold p-3">Visited</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% urls.forEach((url,index)=> { %>
+          <tr>
+            <td class="border-2 text-center border-gray-400 p-3">
+              <%=index+1%>
+            </td>
+            <td class="border-2 text-center border-gray-400 p-3">
+              <%=url.shortId%>
+            </td>
+            <td class="border-2 border-gray-400 p-3"><%=url.originalURL%></td>
+            <td class="border-2 text-center border-gray-400 p-3">
+              <%=url.visitHistory.length%>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
+  </body>
+</html>

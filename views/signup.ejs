@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+  </head>
+
+  <body>
+    <h1>Sign Up</h1>
+    <form action="/user/signup" method="post">
+      <label>Enter Your Name: <input type="text" required name="name" /></label>
+      <label
+        >Enter Your Email: <input type="email" required name="email"
+      /></label>
+      <label
+        >Enter Your Password: <input type="password" required name="password"
+      /></label>
+      <button type="submit">Sign Up</button>
+    </form>
+    <a href="/user/login">Want To Log In</a>
+    <% if (locals.err) { %>
+    <div><%= err %></div>
+    <% } %>
+  </body>
+</html>

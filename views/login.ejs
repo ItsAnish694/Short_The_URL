@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+  </head>
+
+  <body>
+    <h1>Log In</h1>
+    <form class="flex flex-col" action="/user/login" method="post">
+      <label
+        >Enter Your Email: <input type="email" required name="email"
+      /></label>
+      <label
+        >Enter Your Password: <input type="password" required name="password"
+      /></label>
+      <button type="submit">Log In</button>
+      <a href="/user/signup">Want To SignUp</a>
+      <% if (locals.error) { %>
+      <div><%= error %></div>
+      <% } %>
+    </form>
+  </body>
+</html>
