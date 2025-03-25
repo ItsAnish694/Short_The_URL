@@ -5,7 +5,11 @@ const urlSchema = new Schema(
     shortId: { type: String, required: true, unique: true },
     originalURL: { type: String, required: true },
     visitHistory: [{ timestamp: { type: Number } }],
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true }
 );

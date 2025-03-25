@@ -1,5 +1,6 @@
 import URL from "../models/urlModel.js";
 import User from "../models/userModel.js";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 async function loadHomePage(req, res) {
@@ -20,9 +21,16 @@ async function signUpTheUser(req, res) {
 
 async function logInTheUser(req, res) {
   const { email, password } = req.body;
-  const check = await User.findOne({ email: email, passWord: password });
+  const data = await User.findOne({ email: email });
+  if (!data) {
+    return res.render("login", {
+      error: "Invalid Username Or Password Or It Doesn't Exists",
+    });
+  }
+  const check = await bcrypt.compare(password, data.passWord);
+
   if (check) {
-    const tokenCookie = jwt.sign({ _id: check._id }, process.env.SECRET_KEY);
+    const tokenCookie = jwt.sign({ _id: data._id }, process.env.SECRET_KEY);
     return res
       .cookie("uid", tokenCookie, {
         expires: new Date(Date.now() + 60 * 60 * 1000), // Expires in 1 hour
@@ -30,7 +38,7 @@ async function logInTheUser(req, res) {
       })
       .redirect("home");
   } else {
-    res.render("login", {
+    return res.render("login", {
       error: "Invalid Username Or Password Or It Doesn't Exists",
     });
   }
